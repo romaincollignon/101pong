@@ -1,0 +1,62 @@
+#!/bin/python3
+
+#
+# EPITECH PROJECT, 2022
+# 101pong
+# File description:
+# calculator and print 101pong
+#
+
+import math, sys
+from math import *
+from sys import *
+
+def main():
+        if (len(argv) != 8):
+                sys.exit(84)
+        try:
+                int(argv[7])
+        except:
+                sys.exit(84)
+        if (int(argv[7]) <= 0):
+                sys.exit(84)
+        try:
+                x1 = float(argv[1])
+                y1 = float(argv[2])
+                z1 = float(argv[3])
+                y2 = float(argv[5])
+                x2 = float(argv[4])
+                z2 = float(argv[6])
+                rep = int(argv[7])
+        except ValueError:
+                stderr.write("Error : wrong type of argument.\n")
+                sys.exit(84)
+
+        speed_x = x2 - x1
+        position_rep_x = x2 + (speed_x * rep)
+        speed_y = y2 - y1
+        position_rep_y = y2 + (speed_y * rep)
+        speed_z = z2 - z1
+        position_rep_z = z2 + (speed_z * rep)
+        speed_f = sqrt(pow(speed_x, 2) + pow(speed_y, 2) + pow(speed_z, 2))
+
+        if (speed_f != 0):
+                touch_angle = abs(90 - degrees(acos(speed_z / speed_f)))
+        else:
+                touch_angle = 0
+
+        print("The velocity vector of the ball is:")
+        print("(", "%.2f" %speed_x, ", ", "%.2f" %speed_y, ", ",  "%.2f" %speed_z,
+        ")", sep="")
+        print("At time t + ", rep, sep="", end="")
+        print(", ball coordinates will be:")
+        print("(", "%.2f" %position_rep_x, ", ", "%.2f" %position_rep_y, ", ",
+        "%.2f" %position_rep_z, ")", sep="")
+
+        if (z2 < 0 and speed_z >= 0 and rep > 0) or (z2 >= 0 and speed_z < 0 and rep > 0) :
+                print("The incidence angle is:\n", "%.2f " %touch_angle,
+                "degrees", sep="")
+        else:
+                print("The ball won't reach the paddle.")
+        sys.exit(0)
+main()
